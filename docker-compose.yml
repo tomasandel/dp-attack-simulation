@@ -1,0 +1,7 @@
+services:
+  attacker:
+    build: ./server
+    ports:
+      - "443:443"
+    volumes:
+      - ./ca:/app/certs:ro
