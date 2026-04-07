@@ -1,0 +1,9 @@
+node_modules/
+certs/
+package-lock.json
+
+# debug/diagnostic scripts
+debug-*.mjs
+generate-test-cert.mjs
+generate-cert-with-scts.mjs
+ATTACK-SCENARIO.md

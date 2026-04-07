@@ -1,0 +1,10 @@
+{
+  "name": "ct-attack-tools",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "asn1js": "^3.0.5",
+    "pkijs": "^3.2.4",
+    "pvtsutils": "^1.3.6"
+  }
+}

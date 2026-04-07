@@ -1,7 +1,8 @@
 services:
+  # ---- Attacker HTTPS server ----
   attacker:
     build: ./server
     ports:
       - "443:443"
     volumes:
-      - ./ca:/app/certs:ro
+      - ./certs:/app/certs:ro
