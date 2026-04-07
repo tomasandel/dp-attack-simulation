@@ -44,20 +44,25 @@ console.log(`Log A: log_id = ${logA.logId.toString('hex')}`);
 console.log(`Log B: log_id = ${logB.logId.toString('hex')}`);
 console.log(`\nKeys saved to: ${CA_DIR}/log-a.key, log-a.pub, log-b.key, log-b.pub`);
 
-console.log('\n=== C code for CTKnownLogs.h ===\n');
+console.log('\n=== C code for CTKnownLogs.h (DEBUG build) ===\n');
 
-// First, the operator entry to add to kCTLogOperatorList
-console.log('// Add to kCTLogOperatorList[] (note the operator index for log entries):');
-console.log('    {"Attack Simulation", mozilla::ct::CTLogOperatorId(99)},\n');
+// Operator entries - two separate operators matching existing DEBUG entries
+console.log('// Add to kCTLogOperatorList[] (after the last #endif // DEBUG):');
+console.log('    {"Attack Simulation Operator A", 8}, //DP Attack simulation operators');
+console.log('    {"Attack Simulation Operator B", 9},\n');
 
-// Get the operator index - user needs to count existing entries
-console.log('// Add to kCTLogList[] (set operator index to match your position in kCTLogOperatorList):');
+// Log entries using operator indices 8 and 9
+console.log('// Add to kCTLogList[]:');
 
-for (const log of [logA, logB]) {
-  const label = log.name === 'log-a' ? 'Attack Log A' : 'Attack Log B';
+const operators = [
+  { log: logA, label: 'Attack Simulation Log A', opIndex: 8 },
+  { log: logB, label: 'Attack Simulation Log B', opIndex: 9 },
+];
+
+for (const { log, label, opIndex } of operators) {
   console.log(`    {"${label}", CTLogState::Admissible, CTLogFormat::RFC6962,`);
   console.log(`     1727734467000,  // 2024-09-30T22:19:27Z`);
-  console.log(`     99,             // operator index (Attack Simulation)`);
+  console.log(`     ${opIndex},             // operator index (Attack Simulation Operator ${log.name === 'log-a' ? 'A' : 'B'})`);
   console.log(derToCHex(log.pubDer) + ',');
   console.log(`     ${log.pubDer.length}},`);
   console.log('');

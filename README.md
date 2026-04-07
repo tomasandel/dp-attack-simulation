@@ -25,7 +25,11 @@ node generate-log-keys.mjs
 # 3. Copy certs/log-{a,b}.{key,pub} to the CT log instances (dp-ct-log)
 #    and inject the public keys into Firefox Nightly's CTKnownLogs.h
 
-# 4. Start the CT log instances, then generate attack certificates
+# 4. Generate log-list.json (merges Google's list + attack logs)
+node generate-log-list.mjs
+#    Copy log-list.json to the proxy's static directory
+
+# 5. Start the CT log instances, then generate attack certificates
 node generate-all-certs.mjs
 ```
 
@@ -48,6 +52,7 @@ Runs an HTTPS server on port 443 that uses SNI to serve the correct certificate 
 ```
 generate-ca.mjs           # Creates rogue CA keypair + self-signed cert
 generate-log-keys.mjs     # Creates EC P-256 keypairs for CT log instances
+generate-log-list.mjs     # Generates log-list.json (Google logs + attack logs)
 generate-all-certs.mjs    # Generates all 3 attack certificates
 server/                   # Attacker HTTPS server (Express, Docker)
 certs/                    # Generated artifacts (gitignored)
