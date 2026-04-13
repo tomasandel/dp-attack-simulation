@@ -7,6 +7,6 @@ RUN npm install --production
 
 COPY . .
 
-EXPOSE 3333
+EXPOSE 443
 
 CMD ["node", "server.mjs"]

@@ -31,6 +31,10 @@ node generate-log-list.mjs
 
 # 5. Start the CT log instances, then generate attack certificates
 node generate-all-certs.mjs
+
+# 6. Populate CT log trees with dummy certificates (run on the log server)
+#    Creates a shared baseline so consistency proofs are meaningful
+node generate-dummy-certs.mjs [--count 5]
 ```
 
 Log URLs default to `https://loga.jvgc-a.com` and `https://logb.jvgc-a.com`. Override with:
@@ -54,6 +58,7 @@ generate-ca.mjs           # Creates rogue CA keypair + self-signed cert
 generate-log-keys.mjs     # Creates EC P-256 keypairs for CT log instances
 generate-log-list.mjs     # Generates log-list.json (Google logs + attack logs)
 generate-all-certs.mjs    # Generates all 3 attack certificates
+generate-dummy-certs.mjs  # Populates CT log trees with dummy certs
 server/                   # Attacker HTTPS server (Express, Docker)
 certs/                    # Generated artifacts (gitignored)
 ```
